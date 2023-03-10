@@ -1,0 +1,465 @@
+@import "reset.scss";
+
+$check-border: 1px solid #fff;
+
+%container-style {
+    background-color: #303030;
+    padding: 15px;
+    border-radius: 0.25rem;
+}
+
+$container-margin: 0px 15px;
+
+$page-font: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+%btn {
+    border: 1px solid #444;
+    background-color: #00bc8c;
+    padding: 15px;
+    text-align: center;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    &:hover {
+        background: #01d5a0;
+    }
+}
+
+%logo {
+    background-image: url("../assets/images/logo_songbird.svg");
+    width: 200px;
+    height: 55px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.app {
+    padding: 15px 50px;
+    background-color: #222;
+    @media (max-width: 700px) {
+        padding: 15px 0px;
+    }
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.pagination,
+.main {
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fff;
+}
+
+.top-panel {
+    margin: $container-margin;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    .logo {
+        @extend %logo;
+        margin: 10px 0;
+    }
+    .score {
+        margin-top: 25px;
+        font-size: 22px;
+        font-family: $page-font;
+        color: #fff;
+    }
+}
+
+.pagination {
+    margin: $container-margin;
+    background-color: #007c5d;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+    border-radius: 5px;
+    gap: 1px;
+    .page-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 35px;
+        padding: 0 15px;
+        flex-grow: 1;
+        background-color: #008966;
+        border-radius: 5px;
+        &.active {
+            background: #00bc8c;
+            border-radius: 5px;
+        }
+        .page-link {
+            color: #fff;
+        }
+    }
+}
+
+.game-container {
+    padding-bottom: 15px;
+}
+
+.random-bird {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    @extend %container-style;
+    margin: $container-margin;
+    &.hidden {
+        display: none;
+    }
+    .bird-image {
+        width: 200px;
+        height: 155px;
+        border-radius: 10px;
+    }
+    .bird-sound {
+        margin: 0 40px;
+        flex-grow: 1;
+        min-width: 220px;
+        .sound-name {
+            padding: 5px 5px 20px;
+            font-size: 30px;
+            border-bottom: 1px solid #555;
+            font-family: $page-font;
+            @media (max-width: 700px) {
+                text-align: center;
+                padding: 15px 5px 15px;
+            }
+        }
+        .sound-music {
+            display: flex;
+            padding: 10px 0;
+            .play {
+                width: 40px;
+                height: 40px;
+                background: url("../assets/images/play-btn.png");
+                background-size: cover;
+                margin-right: 10px;
+                cursor: pointer;
+                &.active {
+                    background: url("../assets/images/pause-btn.png");
+                    background-size: cover;
+                }
+            }
+            .audio-tracker {
+                flex-grow: 1;
+                margin: 0 10px;
+                .audio-track {
+                    height: 3px;
+                    background-color: #7b7b7b;
+                    margin: 20px 0 8px;
+                    .time {
+                        width: 0;
+                        height: 3px;
+                        background: linear-gradient(to right, rgb(0, 188, 140) 0%, rgb(61, 133, 140) 100%);
+                    }
+                }
+                .time-info {
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 11px;
+                    padding-left: 4px;
+                }
+            }
+        }
+    }
+}
+
+.birds-container {
+    display: flex;
+    margin: $container-margin;
+    margin-top: 25px;
+    gap: 30px;
+    @media (max-width: 700px) {
+        flex-direction: column;
+    }
+    &.hidden {
+        display: none;
+    }
+    .birds-list {
+        flex: 0 1 50%;
+        padding: 0;
+        cursor: pointer;
+        &.disabled {
+            pointer-events: none;
+            cursor: auto;
+        }
+        .birds-list-item {
+            @extend %container-style;
+            padding: 15px 20px;
+            border: 1px solid #444;
+            pointer-events: inherit;
+            &.active {
+                background: #555;
+            }
+            .li-ind {
+                display: inline-block;
+                background: #444;
+                width: 10px;
+                height: 10px;
+                margin-right: 15px;
+                border-radius: 50%;
+                transition: 0.1s;
+            }
+        }
+    }
+    .birds-description {
+        @extend %container-style;
+        flex: 0 1 50%;
+        border: 1px solid #444;
+        line-height: 1.5;
+        .birds-description-unselected,
+        .birds-description-selected {
+            display: none;
+            &.active {
+                display: block;
+            }
+        }
+        .birds-description-selected {
+            .selected-bird {
+                display: flex;
+                margin-bottom: 20px;
+                @media (max-width: 990px) {
+                    flex-direction: column;
+                }
+                .selected-bird-image,
+                .selected-bird-name {
+                    @media (max-width: 990px) {
+                        display: flex;
+                        justify-content: center;
+                    }
+                }
+                .selected-bird-image {
+                    .selected-image {
+                        width: 200px;
+                        height: 155px;
+                        border-radius: 10px;
+                        margin-right: 15px;
+                    }
+                }
+                .selected-bird-name {
+                    flex-grow: 1;
+                    margin: 0 15px;
+                    .selected-name-rus {
+                        font-size: 22px;
+                        font-weight: 600;
+                        line-height: 2.5;
+                        border-bottom: 1px solid #555;
+                    }
+                    .selected-name-lat {
+                        line-height: 2;
+                        border-bottom: 1px solid #555;
+                    }
+                    @media (max-width: 990px) {
+                        display: flex;
+                        flex-direction: column;
+                    }
+                }
+            }
+            .selected-description {
+                @media (max-width: 990px) {
+                    margin: 0 15px;
+                }
+            }
+        }
+    }
+}
+
+.change-level {
+    margin: 25px 15px 10px;
+    @extend %btn;
+    &.disabled {
+        pointer-events: none;
+        cursor: auto;
+        background-color: #303030;
+    }
+    &.hidden {
+        display: none;
+    }
+}
+
+// страница с результатами
+
+.win-result-container {
+    background-color: #303030;
+    border-radius: 0.25rem;
+    margin: 0 15px;
+    min-height: 404px;
+    padding: 4rem 2rem;
+    display: none;
+    &.active {
+        display: block;
+    }
+    .win-result {
+        font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif,
+            "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        line-height: 1.5;
+        .congratulate {
+            font-size: 4.5rem;
+            font-weight: 100;
+            text-align: center;
+            @media (max-width: 700px) {
+                font-size: 3rem;
+            }
+        }
+        .win-description {
+            font-size: 1.171875rem;
+            font-weight: 100;
+            text-align: center;
+            @media (max-width: 700px) {
+                font-size: 0.9rem;
+            }
+            .win-score,
+            .max-score {
+                font-size: 1.2rem;
+                font-weight: 600;
+                @media (max-width: 700px) {
+                    font-size: 1rem;
+                }
+            }
+        }
+        .win-line {
+            background: rgba(0, 0, 0, 0.1);
+            margin: 1.5rem 0;
+            height: 0.5px;
+        }
+    }
+    .restart-btn {
+        width: 100%;
+        margin: 25px 0;
+        @extend %btn;
+    }
+}
+
+// стартовая страница
+
+.start-page {
+    background: url("../assets/images/index_background.jpg");
+    background-size: cover;
+    font-family: $page-font;
+    @media (max-width: 900px) {
+        background: url("../assets/images/index_background_mob.jpg");
+        min-height: 100vh;
+    }
+    @media (min-width: 1000px) {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+}
+
+.start-header {
+    background-color: #008966;
+    .container {
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        @media (max-width: 1099px) {
+            margin: 0 15px;
+        }
+        .nav {
+            height: 100%;
+            .page-navigation {
+                display: flex;
+                font-size: 22px;
+                font-family: $page-font;
+                align-items: center;
+                height: 100%;
+                @media (max-width: 450px) {
+                    flex-direction: column;
+                }
+                .nav-item {
+                    padding: 0 15px;
+                    display: flex;
+                    align-items: center;
+                    height: 100%;
+                    &:hover {
+                        background: #00bc8c;
+                        @media (max-width: 450px) {
+                            background: #008966;
+                            text-shadow: 0px 0px 10px #00ffbf;
+                        }
+                    }
+                    .nav-link {
+                        color: #fff;
+                        font-weight: 600;
+                        font-size: 30px;
+                    }
+                }
+            }
+        }
+        .logo {
+            @extend %logo;
+            margin-left: 30px;
+            @media (max-width: 500px) {
+                background-position: center;
+            }
+        }
+    }
+}
+
+.game-description {
+    padding: 30px;
+    text-shadow: 1px 1px 2px #000;
+    .description-title {
+        font-size: 30px;
+        letter-spacing: 1px;
+        font-weight: 600;
+        margin: 30px;
+    }
+    .description-text {
+        font-size: 20px;
+        // font-style: italic;
+        line-height: 1.5;
+    }
+}
+
+.start-btn {
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+    margin: 20px auto;
+    @extend %btn;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+}
+
+.footer {
+    margin-top: 100px;
+    padding: 20px 0;
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 30px;
+        .deploy-year {
+            font-size: 26px;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+            align-self: end;
+        }
+        .social-links {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            .github-link {
+                .github {
+                    width: 40px;
+                }
+            }
+            .rs-school-link {
+                .rs-school {
+                    width: 100px;
+                }
+            }
+        }
+    }
+}

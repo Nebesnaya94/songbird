@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/style.css" />
+    <title>Songbird game</title>
+  </head>
+  <body class="app">
+    <header class="header">
+      <div class="container">
+        <div class="top-panel">
+          <a href="./index.html"><div class="logo"></div></a>
+          <div class="score">Score: <span>0</span></div>
+        </div>
+        <ul class="pagination">
+          <li class="page-item">
+            <a href="#" class="page-link">Разминка</a>
+          </li>
+          <li class="page-item">
+            <a href="#" class="page-link">Воробьиные</a>
+          </li>
+          <li class="page-item">
+            <a href="#" class="page-link">Лесные птицы</a>
+          </li>
+          <li class="page-item">
+            <a href="#" class="page-link">Певичие птицы</a>
+          </li>
+          <li class="page-item">
+            <a href="#" class="page-link">Хищные птицы</a>
+          </li>
+          <li class="page-item">
+            <a href="#" class="page-link">Морские птицы</a>
+          </li>
+        </ul>
+      </div>
+    </header>
+    <main class="main">
+      <div class="container game-container">
+        <section class="random-bird">
+          <img
+            src="../assets/images/bird_image.jpg"
+            alt="bird image"
+            class="bird-image"
+          />
+          <div class="bird-sound">
+            <div class="sound-name">******</div>
+            <div class="sound-music">
+              <button class="play"></button>
+              <div class="audio-tracker">
+                <div class="audio-track"><div class="time"></div></div>
+                <div class="time-info">
+                  <div class="current-time"></div>
+                  <div class="duration-time"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="birds-container">
+          <ul class="birds-list">
+            <li class="birds-list-item">
+              <span class="li-ind"></span><span class="bird-name"></span>
+            </li>
+            <li class="birds-list-item">
+              <span class="li-ind"></span><span class="bird-name"></span>
+            </li>
+            <li class="birds-list-item">
+              <span class="li-ind"></span><span class="bird-name"></span>
+            </li>
+            <li class="birds-list-item">
+              <span class="li-ind"></span><span class="bird-name"></span>
+            </li>
+            <li class="birds-list-item">
+              <span class="li-ind"></span><span class="bird-name"></span>
+            </li>
+            <li class="birds-list-item last">
+              <span class="li-ind"></span><span class="bird-name"></span>
+            </li>
+          </ul>
+          <div class="birds-description">
+            <div class="birds-description-unselected">
+              Послушайте плеер. <br />
+              Выберите птицу из списка
+            </div>
+            <div class="birds-description-selected">
+              <div class="selected-bird">
+                <div class="selected-bird-image">
+                  <img class="selected-image" src="#" alt="bird image" />
+                </div>
+                <div class="selected-bird-name">
+                  <div class="selected-name-rus"></div>
+                  <div class="selected-name-lat"></div>
+                </div>
+              </div>
+              <div class="selected-description"></div>
+            </div>
+          </div>
+        </section>
+        <div class="change-level">Next Level</div>
+        <section class="win-result-container">
+          <div class="win-result">
+            <div class="congratulate">Поздравляем!</div>
+            <div class="win-description">
+              Вы прошли викторину и&nbspнабрали&nbsp<span class="win-score"
+                >0</span
+              >&nbspиз <span class="max-score">30</span> возможных баллов
+            </div>
+            <div class="win-line"></div>
+          </div>
+          <button class="restart-btn">Попробовать еще раз!</button>
+        </section>
+      </div>
+    </main>
+    <script src="../scripts/game.js"></script>
+  </body>
+</html>
